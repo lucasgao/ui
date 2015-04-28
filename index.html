@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html ng-app="todos" ng-cloak>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>[Zhiluo Gao] - G4 UX Challenge</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script  src="https://code.angularjs.org/1.3.15/angular.js"></script>
+
+    <script  src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.12.1.min.js"></script>
+
+
+    <script  src="js/script.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+  </head>
+
+
+    <!-- Good luck -->
+    <body>
+    <div ng-controller="TodoController">
+    <h1> View all customer data</h1>
+    <h4>{{todos.length}} total customer data</h4>
+
+    <ul>
+      <li ng-repeat="todo in filteredTodos">
+        <table id="tbl" style="width: 100%;">
+          <tbody>
+          <tr style="width: 100%;">
+            <td style="width: 5%;"> id: {{todo.id}} </td>
+            <td style="width: 17.5%;"> email: &nbsp{{todo.email}} </td>
+            <td style="width: 15%;"> Name:&nbsp {{todo.first_name}} &nbsp{{todo.last_name}} </td>
+            <td style="width: 12.5%;"> ip:&nbsp {{todo.ip}} </td>
+            <td style="width: 12.5%;">  longitude:&nbsp{{todo.latitude}} </td>
+            <td style="width: 12.5%;">  latitude: &nbsp {{todo.latitude}} </td>
+            <td style="width: 15%;"> created_at:&nbsp{{todo.created_at}} </td>
+            <td style="width: 5%;"> updated_at:&nbsp{{todo.updated_at}} </td>
+          </tr>
+          </tbody>
+        </table>
+
+      </li>
+    </ul>
+      <div align="center">
+      <pagination
+              ng-model="currentPage"
+              total-items="todos.length"
+              max-size="maxSize"
+              boundary-links="true">
+      </pagination>
+      </div>
+    </div>
+    <div ng-controller="SearchCtrl" >
+      <div class="container">
+
+
+        <form name="form" novalidate>
+
+          <div class="form-group col-md-6">
+            <label >Enter a name to search: </label>
+            <input type="text" class="form-control" id="name" ng-focus="searchByName(selected);" placeholder="Enter the Name" typeahead="user as (user.first_name + ' ' + user.last_name) for user in todos | filter:$viewValue  | limitTo:5" ng-model="selected" name="Name" required="" />
+
+            <br />
+            <div ng-show="form.Name.$touched">
+              <div class="text-danger" ng-show="form.Name.$error.required">Enter the name you want to search.</div>
+            </div>
+          </div>
+
+
+
+        <div class="form-group col-md-6">
+          <label for="email"> Enter a Email to search:</label>
+          <input type="email" class="form-control" id="email" typeahead="user as (user.email) for user in todos | filter:$viewValue  | limitTo:5" ng-focus="searchByEmail(selected2);" placeholder="Enter the Email" ng-model="selected2" name="uEmail" required="" />
+          <br />
+          <div ng-show="form.uEmail.$touched">
+            <span class="text-danger" ng-show="form.uEmail.$error.required">Enter the email your want to search. XXX@XXX</span>
+
+          </div>
+        </div>
+        </form>
+
+    </div>
+
+
+
+      <div ng-show="showSearch">
+        <h1>Search Result</h1>
+        <h4>{{chooseResult.length}} total</h4>
+
+        <ul>
+          <li ng-repeat="todo in choose">
+            <table  style="width: 100%;">
+              <tbody>
+              <tr style="width: 100%;">
+                <td style="width: 5%;"> id: {{todo.id}} </td>
+                <td style="width: 17.5%;"> email: &nbsp{{todo.email}} </td>
+                <td style="width: 15%;"> Name:&nbsp {{todo.first_name}} &nbsp{{todo.last_name}} </td>
+                <td style="width: 12.5%;"> ip:&nbsp {{todo.ip}} </td>
+                <td style="width: 12.5%;">  longitude:&nbsp{{todo.latitude}} </td>
+                <td style="width: 12.5%;">  latitude: &nbsp {{todo.latitude}} </td>
+                <td style="width: 15%;"> created_at:&nbsp{{todo.created_at}} </td>
+                <td style="width: 5%;"> updated_at:&nbsp{{todo.updated_at}} </td>
+              </tr>
+              </tbody>
+            </table>
+
+          </li>
+        </ul>
+        <div align="center">
+        <pagination
+                ng-model="currentPage"
+                total-items="chooseResult.length"
+                max-s3ize="maxSize"
+            boundary-links="true">
+    </pagination>
+        </div>
+</div>
+    </div>
+
+    </body>
+
+
+
+    <!--
+       <script src="js/plugins.js"></script>
+       <script src="js/main.js"></script> -->
+
+   </html>
